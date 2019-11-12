@@ -22,8 +22,8 @@ public class ExercisesTest extends TestCase {
 		list.add("+");
 		assertEquals(exercise.getRandomOperation(list),"+");
 		
-		list.add("+");
-		assertTrue(exercise.getRandomOperation(list).equals("+") || exercise.getRandomOperation(list).equals("-"));
+		list.add("-");
+		assertTrue(list.contains(exercise.getRandomOperation(list)));
 	}
 	
 	public void testCalculation () {
@@ -45,8 +45,14 @@ public class ExercisesTest extends TestCase {
 		result = exercise.calculation(6,3,"*");
 		assertEquals(result,18);
 		
-//		result = exercise.calculation(4,2,"/");
-//		assertEquals(result,2);
+		result = exercise.calculation(4,2,"/");
+		assertEquals(result,2);
+		
+		result = exercise.calculation(15,3,"/");
+		assertEquals(result,5);
+		
+		result = exercise.calculation(20,5,"/");
+		assertEquals(result,4);
 		
 	}
 	

@@ -153,6 +153,7 @@ public class ExerciseFrame extends JFrame {
 	
 	private void callExercise() {
 		exercise = new Exercise();
+		exercise.init();
 
 		lblNumber1.setText(Integer.toString(exercise.getNumber1()));
 		lblNumber2.setText(Integer.toString(exercise.getNumber2()));

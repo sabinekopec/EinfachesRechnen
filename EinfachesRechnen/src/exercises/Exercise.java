@@ -7,12 +7,6 @@ public class Exercise extends ArithmeticOperations {
 	
 	public Exercise() {
 		
-		numberRange = StartFrame.getNumberRange();
-		number1 = getRandomNumber(numberRange[0],numberRange[1]);
-		number2 = getRandomNumber(numberRange[0],numberRange[1]);
-		operation = getRandomOperation(StartFrame.getArithmeticOperations());
-		
-		result = calculation(number1, number2, operation);
 	}
 	
 	private int number1;
@@ -25,6 +19,15 @@ public class Exercise extends ArithmeticOperations {
 	
 	private int result; //= calculation(number1, number2, operation);
 	
+	
+	public void init() {
+		numberRange = StartFrame.getNumberRange();
+		number1 = getRandomNumber(numberRange[0],numberRange[1]);
+		number2 = getRandomNumber(numberRange[0],numberRange[1]);
+		operation = getRandomOperation(StartFrame.getArithmeticOperations());
+		
+		result = calculation(number1, number2, operation);
+	}
 	
 //	int arithmeticOperations = StartFrame.getArithmeticOperations();
 
@@ -72,11 +75,10 @@ public class Exercise extends ArithmeticOperations {
 			result = product(number1,number2);
 			break;
 		case "/":
-			if (number2 != 0) {
+			if (number1 !=0 && number2 != 0 && (number1 % number2 == 0)) {
 				result = ratio(number1,number2);
 			} else {
-				number2 = getRandomNumber(0,5);
-				calculation(number1,number2,"ratio");
+				init();
 			}
 		}
 		return result;
