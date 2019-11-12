@@ -25,6 +25,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JRadioButton;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,9 @@ import java.util.List;
 
 public class StartFrame extends JFrame {
 
+	/**
+	 * 
+	 */
 	private JPanel contentPane;
 	private String difficulty;
 	private String exerciseType;
@@ -52,10 +56,6 @@ public class StartFrame extends JFrame {
 		int[] list = {minNumber,maxNumber};
 		return list;
 	}
-	/**
-	 * Launch the application.
-	 */
-
 
 	/**
 	 * Create the frame.
@@ -81,8 +81,8 @@ public class StartFrame extends JFrame {
 		gbc_lblZahlenraum.gridy = 0;
 		contentPane.add(lblZahlenraum, gbc_lblZahlenraum);
 		
-		JComboBox cbNumberSpace = new JComboBox();
-		cbNumberSpace.setModel(new DefaultComboBoxModel(new String[] {"Zahlen bis 5", "Zahlen bis 10", "Zahlen bis 15", "Zahlen bis 20", "Zahlen von 100-200"}));
+		JComboBox<Object> cbNumberSpace = new JComboBox<Object>();
+		cbNumberSpace.setModel(new DefaultComboBoxModel<Object>(new String[] {"" , "Zahlen bis 5", "Zahlen bis 10", "Zahlen bis 15", "Zahlen bis 20", "Zahlen von 100-200"}));
 		cbNumberSpace.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -229,7 +229,14 @@ public class StartFrame extends JFrame {
 		
 		buttonConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ExerciseFrame();
+				
+				if (arithmeticOperations.isEmpty()) {
+					JOptionPane.showConfirmDialog(null, "Keine Rechenoperation ausgewählt. Welche Rechenoperationen möchtest du üben?", "Fehlende Rechenoperation", JOptionPane.PLAIN_MESSAGE);
+				} else if (maxNumber==0) {
+					JOptionPane.showConfirmDialog(null, "Kein Zahlenraum ausgewählt. In welchem Zahlenraum möchtest du üben?", "Fehlender Zahlenraum", JOptionPane.PLAIN_MESSAGE);
+				} else {
+					new ExerciseFrame();
+				}
 			}
 		});
 		
@@ -238,8 +245,6 @@ public class StartFrame extends JFrame {
 		gbc_confirm.gridx = 1;
 		gbc_confirm.gridy = 8;
 		contentPane.add(buttonConfirm, gbc_confirm);
-		
-//		setVisible(true);
 		
 	}
 	
@@ -256,12 +261,6 @@ public class StartFrame extends JFrame {
 			}
 		});
 	}
-	
-//	public static void main(String[] args) {
-//		
-//		new StartFrame();
-////		frame.getArithmeticOperations();
-//	}
 
 	
 }

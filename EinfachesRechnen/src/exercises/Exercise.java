@@ -21,6 +21,8 @@ public class Exercise extends ArithmeticOperations {
 	
 	private String operation;
 	
+	private int exerciseType;
+	
 	private int result; //= calculation(number1, number2, operation);
 	
 	
@@ -52,6 +54,11 @@ public class Exercise extends ArithmeticOperations {
 		return result;
 	}
 	
+	public int getExerciseType() {
+		exerciseType = randomNumber(1,3);
+		return exerciseType;
+	}
+	
 	public int calculation(int number1, int number2, String operation) {
 		
 		switch (operation) {
@@ -74,6 +81,7 @@ public class Exercise extends ArithmeticOperations {
 		}
 		return result;
 	}
+
 	
 	
 }

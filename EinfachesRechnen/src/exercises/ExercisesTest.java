@@ -36,6 +36,15 @@ public class ExercisesTest extends TestCase {
 		result = exercise.calculation(2,2,"*");
 		assertEquals(result,4);
 		
+		result = exercise.calculation(12,2,"+");
+		assertEquals(result,14);
+		
+		result = exercise.calculation(14,4,"-");
+		assertEquals(result,10);
+		
+		result = exercise.calculation(6,3,"*");
+		assertEquals(result,18);
+		
 //		result = exercise.calculation(4,2,"/");
 //		assertEquals(result,2);
 		
