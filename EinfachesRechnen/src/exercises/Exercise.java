@@ -28,8 +28,8 @@ public class Exercise extends ArithmeticOperations {
 		
 		result = calculation(number1, number2, operation);
 		
-		System.out.println("aus Klasse Exercise:");
-		System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
+//		System.out.println("from class Exercise:");
+//		System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
 	}
 	
 //	int arithmeticOperations = StartFrame.getArithmeticOperations();

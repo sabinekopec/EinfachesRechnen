@@ -4,7 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+import javax.print.event.PrintJobAdapter;
+import javax.print.event.PrintJobEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -15,19 +30,6 @@ import javax.swing.JLabel;
 public class HandlingExercises extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			handlingExercises dialog = new handlingExercises();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * Create the dialog.
@@ -52,12 +54,9 @@ public class HandlingExercises extends JDialog {
 			{
 				JButton btnSaveAsFile = new JButton("Speichern als");
 				btnSaveAsFile.setVerticalAlignment(SwingConstants.BOTTOM);
-//				btnSaveAsFile.setActionCommand("OK");
 				btnSaveAsFile.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-//						SaveFileDialogExample saveFile = 
 						new SaveFileDialog();
-//						saveFile.init();
 					}
 				});
 				buttonPane.add(btnSaveAsFile);
@@ -66,7 +65,13 @@ public class HandlingExercises extends JDialog {
 			{
 				JButton btnPrint = new JButton("Drucken");
 				btnPrint.setVerticalAlignment(SwingConstants.BOTTOM);
-//				btnPrint.setActionCommand("Cancel");
+				
+				btnPrint.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						new PrintFileDialog();	    
+					}
+				});
+				
 				buttonPane.add(btnPrint);
 			}
 		}

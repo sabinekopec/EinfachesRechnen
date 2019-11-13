@@ -18,6 +18,8 @@ public class SaveFileDialog extends JFrame {
 	}
 
 	private void showSaveFileDialog() {
+		
+		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Aufgaben sichern unter:");
 

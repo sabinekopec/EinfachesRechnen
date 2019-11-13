@@ -29,8 +29,8 @@ public class GenerateListOfExercises {
 			
 			exerciseType = exercise.getExerciseType();
 			
-			System.out.println("in Klasse GenerateListOfExercises");
-			System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
+//			System.out.println("from class GenerateListOfExercises");
+//			System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
 			
 			String listEntry = new String();
 			int solution = 0;
@@ -49,8 +49,8 @@ public class GenerateListOfExercises {
 				solution = result;
 			}
 			
-			System.out.println("formatierter String");
-			System.out.println(listEntry);
+//			System.out.println("formatierter String");
+//			System.out.println(listEntry);
 			
 			listOfExercises.add(listEntry);
 			listOfSolutions.add(Integer.toString(solution));
@@ -71,8 +71,5 @@ public class GenerateListOfExercises {
 		return listOfExercises;
 	}
 
-//	public static List<String> getListOfSolutions() {
-//		return listOfSolutions;
-//	}
 	
 }
