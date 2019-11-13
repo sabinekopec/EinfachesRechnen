@@ -56,7 +56,7 @@ public class HandlingExercises extends JDialog {
 				btnSaveAsFile.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 //						SaveFileDialogExample saveFile = 
-						new SaveFileDialogExample();
+						new SaveFileDialog();
 //						saveFile.init();
 					}
 				});
