@@ -38,15 +38,15 @@ public class StartFrame extends JFrame {
 	 * 
 	 */
 	private JPanel contentPane;
-	private String difficulty;
-	private String exerciseType;
+//	private String difficulty;
+	private String numberOfExercises;
 	private static int minNumber, maxNumber;
 
 	private static List<String> arithmeticOperations = new ArrayList<String>();
 	
-	public String getDifficulty() {
-		return difficulty;
-	}
+//	public String getDifficulty() {
+//		return difficulty;
+//	}
 	
 	public static List<String> getArithmeticOperations() {
 		return arithmeticOperations;
@@ -120,36 +120,36 @@ public class StartFrame extends JFrame {
 		gbc_cbNumberSpace.gridy = 0;
 		contentPane.add(cbNumberSpace, gbc_cbNumberSpace);
 		
-		cbNumberSpace.addActionListener(new ActionListener() {
+//		cbNumberSpace.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				JComboBox<String> cb = (JComboBox<String>) e.getSource();
+//				difficulty = (String) cb.getSelectedItem();
+//			}
+//		});
+		
+		JLabel lblNumberOfExercises = new JLabel("Aufgabentyp auswählen");
+		GridBagConstraints gbc_lblNumberOfExercises = new GridBagConstraints();
+		gbc_lblNumberOfExercises.anchor = GridBagConstraints.WEST;
+		gbc_lblNumberOfExercises.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberOfExercises.gridx = 0;
+		gbc_lblNumberOfExercises.gridy = 1;
+		contentPane.add(lblNumberOfExercises, gbc_lblNumberOfExercises);
+		
+		JComboBox<String> cbNumberOfExercises = new JComboBox<String>();
+		cbNumberOfExercises.setModel(new DefaultComboBoxModel<String>(new String[] {"manuell eintragen", "10 Aufgaben zum Drucken"}));
+		GridBagConstraints gbc_cbNumberOfExercises = new GridBagConstraints();
+		gbc_cbNumberOfExercises.anchor = GridBagConstraints.WEST;
+		gbc_cbNumberOfExercises.insets = new Insets(0, 0, 5, 0);
+		gbc_cbNumberOfExercises.gridx = 2;
+		gbc_cbNumberOfExercises.gridy = 1;
+		contentPane.add(cbNumberOfExercises, gbc_cbNumberOfExercises);
+		
+		cbNumberOfExercises.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<String> cb = (JComboBox<String>) e.getSource();
-				difficulty = (String) cb.getSelectedItem();
-			}
-		});
-		
-		JLabel lblExerciseType = new JLabel("Aufgabentyp auswählen");
-		GridBagConstraints gbc_lblExerciseType = new GridBagConstraints();
-		gbc_lblExerciseType.anchor = GridBagConstraints.WEST;
-		gbc_lblExerciseType.insets = new Insets(0, 0, 5, 5);
-		gbc_lblExerciseType.gridx = 0;
-		gbc_lblExerciseType.gridy = 1;
-		contentPane.add(lblExerciseType, gbc_lblExerciseType);
-		
-		JComboBox cbExerciseType = new JComboBox();
-		cbExerciseType.setModel(new DefaultComboBoxModel(new String[] {"manuell eintragen", "10 Aufgaben zum Drucken"}));
-		GridBagConstraints gbc_cbExerciseType = new GridBagConstraints();
-		gbc_cbExerciseType.anchor = GridBagConstraints.WEST;
-		gbc_cbExerciseType.insets = new Insets(0, 0, 5, 0);
-		gbc_cbExerciseType.gridx = 2;
-		gbc_cbExerciseType.gridy = 1;
-		contentPane.add(cbExerciseType, gbc_cbExerciseType);
-		
-		cbExerciseType.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				JComboBox<String> cb = (JComboBox<String>) e.getSource();
-				exerciseType = (String) cb.getSelectedItem();
+				numberOfExercises = (String) cb.getSelectedItem();
 			}
 		});
 		
@@ -171,6 +171,10 @@ public class StartFrame extends JFrame {
 		
 		rdbtnAddition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("+")) {
+					arithmeticOperations.remove("+");
+				}
+				
 				if(rdbtnAddition.isSelected()){ 
 					arithmeticOperations.add("+");
 				}
@@ -187,6 +191,9 @@ public class StartFrame extends JFrame {
 		
 		rdbtnSubtraction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("-")) {
+					arithmeticOperations.remove("-");
+				}
 				if(rdbtnSubtraction.isSelected()){ 
 					arithmeticOperations.add("-");
 				}
@@ -203,6 +210,9 @@ public class StartFrame extends JFrame {
 		
 		rdbtnMultiplication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (arithmeticOperations.size()!=0 &&  arithmeticOperations.contains("*")) {
+					arithmeticOperations.remove("*");
+				}
 				if(rdbtnMultiplication.isSelected()){ 
 					arithmeticOperations.add("*");
 				}
@@ -219,6 +229,10 @@ public class StartFrame extends JFrame {
 		
 		rdbtnDivision.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("/")) {
+					arithmeticOperations.remove("/");
+				}
+				
 				if(rdbtnDivision.isSelected()){ 
 					arithmeticOperations.add("/");
 				}
@@ -235,7 +249,12 @@ public class StartFrame extends JFrame {
 				} else if (maxNumber==0) {
 					JOptionPane.showConfirmDialog(null, "Kein Zahlenraum ausgewählt. In welchem Zahlenraum möchtest du üben?", "Fehlender Zahlenraum", JOptionPane.PLAIN_MESSAGE);
 				} else {
-					new ExerciseFrame();
+					
+					if (numberOfExercises != null && numberOfExercises.equals("10 Aufgaben zum Drucken")) {
+						new GenerateListOfExercises();
+					} else {
+						new ExerciseFrame();
+					}
 				}
 			}
 		});

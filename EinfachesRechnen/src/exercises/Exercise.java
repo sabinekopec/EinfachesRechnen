@@ -27,6 +27,9 @@ public class Exercise extends ArithmeticOperations {
 		operation = getRandomOperation(StartFrame.getArithmeticOperations());
 		
 		result = calculation(number1, number2, operation);
+		
+		System.out.println("aus Klasse Exercise:");
+		System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
 	}
 	
 //	int arithmeticOperations = StartFrame.getArithmeticOperations();
