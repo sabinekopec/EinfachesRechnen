@@ -8,17 +8,28 @@ public class GenerateListOfExercises {
 	
 	private Exercise exercise;
 	
-	private static List<String> listOfExercises = new ArrayList<String>();
+	private ArrayList<String> listOfExercises = new ArrayList<String>();
 	
 	private List<String> listOfSolutions = new ArrayList<String>();
 	private List<String> listOfSpaces = new ArrayList<String>();
+	
+	
+	/*
+	 * generate ArrayList of 10 exercises, with solutions as last entry 
+	 * (some space in between to avoid the student spying on the solutions)
+	 */
+	
 	public GenerateListOfExercises() {
 		
-		int number1, number2, result, exerciseType;
+		Number number1;
+		Number number2;
+		int exerciseType;
+		Number result;
 		String operation;
 		
 		
 		for (int i = 0; i<10; i++) {
+			
 			exercise = new Exercise();
 			exercise.init();
 			
@@ -29,11 +40,9 @@ public class GenerateListOfExercises {
 			
 			exerciseType = exercise.getExerciseType();
 			
-//			System.out.println("from class GenerateListOfExercises");
-//			System.out.println(Integer.toString(number1)+ operation+ Integer.toString(number2)+ "=" + Integer.toString(result));
 			
 			String listEntry = new String();
-			int solution = 0;
+			Number solution = 0;
 			
 			switch(exerciseType) {
 			case 1:
@@ -49,11 +58,8 @@ public class GenerateListOfExercises {
 				solution = result;
 			}
 			
-//			System.out.println("formatierter String");
-//			System.out.println(listEntry);
-			
 			listOfExercises.add(listEntry);
-			listOfSolutions.add(Integer.toString(solution));
+			listOfSolutions.add(solution.toString());
 			listOfSpaces.add(" ");
 			
 		}
@@ -63,12 +69,7 @@ public class GenerateListOfExercises {
 		listOfExercises.add("Lösungen:");
 		listOfExercises.add(solutions);
 		
-		new HandlingExercises();
-	}
-	
-	
-	public static List<String> getListOfExercises() {
-		return listOfExercises;
+		new HandlingExercises(listOfExercises);
 	}
 
 	

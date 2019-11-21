@@ -37,10 +37,16 @@ public class StartFrame extends JFrame {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 7065162247067825117L;
+	/**
+	 * 
+	 */
 	private JPanel contentPane;
 //	private String difficulty;
 	private String numberOfExercises;
 	private static int minNumber, maxNumber;
+	
+	private static boolean useFraction;
 
 	private static List<String> arithmeticOperations = new ArrayList<String>();
 	
@@ -56,6 +62,10 @@ public class StartFrame extends JFrame {
 		int[] list = {minNumber,maxNumber};
 		return list;
 	}
+	
+	public static boolean getUseFraction() {
+		return useFraction;
+	}
 
 	/**
 	 * Create the frame.
@@ -63,12 +73,12 @@ public class StartFrame extends JFrame {
 	public StartFrame() {
 		setTitle("Schwierigkeitsstufe wählen");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 350);
+		setBounds(100, 100, 550, 491);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.rowHeights = new int[]{29, 29, 29, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_contentPane.rowHeights = new int[]{29, 29, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		setContentPane(contentPane);
@@ -86,6 +96,7 @@ public class StartFrame extends JFrame {
 		cbNumberSpace.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unchecked")
 				JComboBox<String> cb = (JComboBox<String>) e.getSource();
 				String numberSpace = (String) cb.getSelectedItem();
 				
@@ -148,6 +159,7 @@ public class StartFrame extends JFrame {
 		cbNumberOfExercises.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unchecked")
 				JComboBox<String> cb = (JComboBox<String>) e.getSource();
 				numberOfExercises = (String) cb.getSelectedItem();
 			}
@@ -239,6 +251,44 @@ public class StartFrame extends JFrame {
 			}
 		});
 		
+		
+		JLabel lblUseFraction = new JLabel("Rationale Zahlen üben?");
+		GridBagConstraints gbc_lblUseFraction = new GridBagConstraints();
+		gbc_lblUseFraction.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUseFraction.gridx = 0;
+		gbc_lblUseFraction.gridy = 8;
+		contentPane.add(lblUseFraction, gbc_lblUseFraction);
+		
+		JComboBox<Object> cbUseFraction = new JComboBox<Object>();
+		cbUseFraction.setModel(new DefaultComboBoxModel<Object>(new String[] {"" , "ja", "nein"}));
+		cbUseFraction.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unchecked")
+				JComboBox<String> cb = (JComboBox<String>) e.getSource();
+				String selectionUseFraction = (String) cb.getSelectedItem();
+				
+				switch(selectionUseFraction) {
+				case "ja":
+					useFraction = true;
+					break;
+				case "nein":
+					useFraction = false;
+					break;
+				default:
+					useFraction = false;
+				}
+			}
+		});
+		
+		GridBagConstraints gbc_cbUseFraction = new GridBagConstraints();
+		gbc_cbUseFraction.anchor = GridBagConstraints.WEST;
+		gbc_cbUseFraction.insets = new Insets(0, 0, 5, 0);
+		gbc_cbUseFraction.gridx = 2;
+		gbc_cbUseFraction.gridy = 8;
+		contentPane.add(cbUseFraction, gbc_cbUseFraction);
+		
+		
 		Button buttonConfirm = new Button("Auswahl bestätigen");
 		
 		buttonConfirm.addActionListener(new ActionListener() {
@@ -259,10 +309,11 @@ public class StartFrame extends JFrame {
 			}
 		});
 		
+		
 		GridBagConstraints gbc_confirm = new GridBagConstraints();
-		gbc_confirm.insets = new Insets(0, 0, 5, 5);
+		gbc_confirm.insets = new Insets(0, 0, 0, 5);
 		gbc_confirm.gridx = 1;
-		gbc_confirm.gridy = 8;
+		gbc_confirm.gridy = 11;
 		contentPane.add(buttonConfirm, gbc_confirm);
 		
 	}
@@ -280,6 +331,8 @@ public class StartFrame extends JFrame {
 			}
 		});
 	}
+
+
 
 	
 }

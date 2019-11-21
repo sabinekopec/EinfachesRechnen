@@ -1,62 +1,100 @@
 package exercises;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.event.PrintJobAdapter;
-import javax.print.event.PrintJobEvent;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class HandlingExercises extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6015619333972297300L;
 	private final JPanel contentPanel = new JPanel();
+	@SuppressWarnings("unused")
+	private List<String> listOfExercises;
 
 	/**
 	 * Create the dialog.
+	 * @param  
+	 * @param listOfExercises 
 	 */
-	public HandlingExercises() {
+	public HandlingExercises(ArrayList<String> listOfExercises) {
+		
+		this.listOfExercises = listOfExercises;
 		setTitle("");
-		setBounds(100, 100, 300, 200);
+//		setSize(new Dimension(100, 300));
+//		setPreferredSize(new Dimension(100, 300));
+		setBounds(100, 300, 300, 385);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{292, 0};
+		gridBagLayout.rowHeights = new int[] {41, 41, 41, 41, 0, 0, 0, 30};
+		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.NORTH);
+		GridBagConstraints gbc_contentPanel = new GridBagConstraints();
+		gbc_contentPanel.fill = GridBagConstraints.BOTH;
+		gbc_contentPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_contentPanel.gridx = 0;
+		gbc_contentPanel.gridy = 0;
+		getContentPane().add(contentPanel, gbc_contentPanel);
+		
 		{
 			JLabel lblTextInfo = new JLabel("<html><body style='width: 8cm;text-align:center'>Sollen die Aufgaben gespeichert oder gedruckt werden?</body></html>");
 			contentPanel.add(lblTextInfo);
 			lblTextInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		}
+		
+		{
+			JPanel exercisePane = new JPanel();
+			exercisePane.setLayout(new FlowLayout(FlowLayout.CENTER));
+			GridBagConstraints gbc_exercisePane = new GridBagConstraints();
+			gbc_exercisePane.gridheight = 4;
+			gbc_exercisePane.fill = GridBagConstraints.BOTH;
+			gbc_exercisePane.insets = new Insets(0, 0, 5, 0);
+			gbc_exercisePane.gridx = 0;
+			gbc_exercisePane.gridy = 1;
+			getContentPane().add(exercisePane, gbc_exercisePane);
+			{
+				JList<Object> exercisesList = new JList<Object>(listOfExercises.toArray());
+				exercisesList.setVisibleRowCount(10);
+				exercisePane.add(exercisesList);
+			}
+		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
-			getContentPane().add(buttonPane, BorderLayout.CENTER);
+			GridBagConstraints gbc_buttonPane = new GridBagConstraints();
+			gbc_buttonPane.fill = GridBagConstraints.BOTH;
+			gbc_buttonPane.insets = new Insets(0, 0, 5, 0);
+			gbc_buttonPane.gridx = 0;
+			gbc_buttonPane.gridy = 5;
+			getContentPane().add(buttonPane, gbc_buttonPane);
 			{
 				JButton btnSaveAsFile = new JButton("Speichern als");
 				btnSaveAsFile.setVerticalAlignment(SwingConstants.BOTTOM);
 				btnSaveAsFile.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						new SaveFileDialog();
+						new SaveFileDialog(listOfExercises);
 					}
 				});
 				buttonPane.add(btnSaveAsFile);
@@ -68,7 +106,7 @@ public class HandlingExercises extends JDialog {
 				
 				btnPrint.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						new PrintFileDialog();	    
+						new PrintFileDialog(listOfExercises);	    
 					}
 				});
 				
@@ -77,7 +115,11 @@ public class HandlingExercises extends JDialog {
 		}
 		{
 			JPanel panel = new JPanel();
-			getContentPane().add(panel, BorderLayout.SOUTH);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 0;
+			gbc_panel.gridy = 6;
+			getContentPane().add(panel, gbc_panel);
 			{
 				JButton btnCloseWindow = new JButton("Fenster schließen");
 				btnCloseWindow.addActionListener(new ActionListener() {
@@ -88,6 +130,7 @@ public class HandlingExercises extends JDialog {
 				panel.add(btnCloseWindow);
 			}
 		}
+
 		setVisible(true);
 	}
 

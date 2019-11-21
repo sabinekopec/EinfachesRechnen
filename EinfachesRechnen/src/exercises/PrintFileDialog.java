@@ -21,18 +21,30 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.event.PrintJobAdapter;
 import javax.print.event.PrintJobEvent;
+import javax.swing.JOptionPane;
 
 public class PrintFileDialog {
 
 	File temp;
+	private ArrayList<String> arrayToPrint;
+	boolean print = false;
 
-	public PrintFileDialog() {
+	public PrintFileDialog(ArrayList<String> arrayToPrint) {
+		
+		this.arrayToPrint = arrayToPrint;
 		
 		createTemporaryFile();
 		showPrintFileDialog();
 	}
 
+	
+	/*
+	 * show dialog to select printer and print temporary file if printerselection was succesful
+	 */
 	private void showPrintFileDialog() {
+		
+		
+		
 		
 		PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
 		PrintService defaultPrintService = PrintServiceLookup.lookupDefaultPrintService();
@@ -52,33 +64,52 @@ public class PrintFileDialog {
 					System.out.println("received no more events");
 				}
 			});
-			FileInputStream fis;
-			try {
-				fis = new FileInputStream(temp);
-				Doc doc=new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
-				attrib.add(new Copies(1));
-				job.print(doc, attrib);
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (PrintException e1) {
-				e1.printStackTrace();
-			}
+			
+			printTempFile(attrib, job);
+			
 		} else {	   
-				System.out.println("selection cancelled");
+			System.out.println("selection cancelled");
 		}
-	
+			
 	}
 
+
+	/*
+	 * print temporary file
+	 */
+	
+	private void printTempFile(PrintRequestAttributeSet attrib, DocPrintJob job) {
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(temp);
+			Doc doc=new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
+			attrib.add(new Copies(1));
+			job.print(doc, attrib);
+		} catch (FileNotFoundException e) {
+			JOptionPane.showConfirmDialog(null, "<html><body style='width: 8cm;text-align:center'>Es konnte keine temporäre Datei angelegt werden. Bitte wähle die Option Speichern als.<body><html>", "Fehler", JOptionPane.PLAIN_MESSAGE);
+			e.printStackTrace();
+		} catch (PrintException e) {
+			JOptionPane.showConfirmDialog(null, "Druckauftrag konnte nicht ausgeführt werden.", "Fehler", JOptionPane.PLAIN_MESSAGE);
+			e.printStackTrace();
+		}
+	}
+
+	
+/* 
+ * create a temporary file of the exercises 
+ * path is afterwards used in method showPrintFileDialog 
+ */	
 	private void createTemporaryFile() {
-		ArrayList<String> listOfExercises = (ArrayList<String>) GenerateListOfExercises.getListOfExercises();
+//		ArrayList<String> listOfExercises = (ArrayList<String>) GenerateListOfExercises.getListOfExercises();
 		
 		try {
-			temp = File.createTempFile("temp-file-name", ".tmp"); 
-		    Files.write(Paths.get(temp.getAbsolutePath()), listOfExercises);
+			temp = File.createTempFile("tempFile", ".tmp"); 
+		    Files.write(Paths.get(temp.getAbsolutePath()), arrayToPrint);
 		    
 		    System.out.println("Temp file : " + temp.getAbsolutePath());
 		} catch (IOException e) {
-		    System.out.println("Unable to write out exercises");
+			JOptionPane.showConfirmDialog(null, "<html><body style='width: 8cm;text-align:center'>Es konnte keine temporäre Datei angelegt werden. Bitte wähle die Option Speichern als.<body><html>", "Fehler", JOptionPane.PLAIN_MESSAGE);
+//		    System.out.println("Unable to write out exercises");
 		}
 	}
 }

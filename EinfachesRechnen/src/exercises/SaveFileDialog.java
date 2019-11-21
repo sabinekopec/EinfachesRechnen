@@ -8,25 +8,26 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class SaveFileDialog extends JFrame {
 
-
-	public SaveFileDialog() {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8908695787179211568L;
+	private ArrayList<String> listOfExercises;
+	
+	
+	public SaveFileDialog(ArrayList<String> listOfExercises) {
 		
-		showSaveFileDialog();
-	}
-
-	private void showSaveFileDialog() {
-		
-		
+		this.listOfExercises = listOfExercises;
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Aufgaben sichern unter:");
 
 		int userSelection = fileChooser.showSaveDialog(this);
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
-			
-			ArrayList<String> listOfExercises = (ArrayList<String>) GenerateListOfExercises.getListOfExercises();
 			
 			
 			File fileToSave = new File(fileChooser.getSelectedFile()+".txt");
@@ -34,9 +35,12 @@ public class SaveFileDialog extends JFrame {
 			try {
 			    Files.write(Paths.get(fileToSave.getAbsolutePath()), listOfExercises);
 			} catch (IOException e) {
-			    System.out.println("Unable to write out exercises");
+				JOptionPane.showConfirmDialog(null, "Datei konnte nicht geschrieben werden.", "Fehler", JOptionPane.PLAIN_MESSAGE);
+				
+//			    System.out.println("Unable to write out exercises");
 			}
 			
 		}
+		
 	}
 }
