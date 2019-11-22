@@ -46,24 +46,25 @@ public class GenerateListOfExercises {
 			
 			switch(exerciseType) {
 			case 1:
-				listEntry = String.format("%d %s __ = %d" , number1, operation, result);
+				listEntry = String.format("%s %s __ = %s" , number1.toString(), operation, result.toString());
 				solution = number2;
 				break;
 			case 2:
-				listEntry = String.format("__ %s %d = %d" , operation, number2, result);
+				listEntry = String.format("__ %s %s = %s" , operation, number2.toString(), result.toString());
 				solution = number1;
 				break;
 			case 3:
-				listEntry = String.format("%d %s %d = __" , number1, operation, number2);
+				listEntry = String.format("%s %s %s = __" , number1.toString(), operation, number2.toString());
 				solution = result;
 			}
 			
 			listOfExercises.add(listEntry);
+			listOfExercises.add(" ");
 			listOfSolutions.add(solution.toString());
 			listOfSpaces.add(" ");
 			
 		}
-		String solutions = String.join(" ", listOfSolutions);
+		String solutions = String.join(" , ", listOfSolutions);
 		
 		listOfExercises.addAll(listOfSpaces);
 		listOfExercises.add("Lösungen:");

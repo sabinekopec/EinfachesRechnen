@@ -24,6 +24,11 @@ import javax.print.event.PrintJobEvent;
 import javax.swing.JOptionPane;
 
 public class PrintFileDialog {
+	
+	/*
+	 * Dialog to select the local printer and print a txt file of the exercises
+	 * @param listOfExercises 
+	 */
 
 	File temp;
 	private ArrayList<String> arrayToPrint;

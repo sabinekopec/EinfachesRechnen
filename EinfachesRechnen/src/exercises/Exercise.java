@@ -9,24 +9,38 @@ public class Exercise extends ArithmeticOperations {
 		
 	}
 	
-//	private Integer number1;
-//	private Integer number2;
-//	private Fraction fraction1, fraction2;
 	private int[] numberRange;
 	
 	private String operation;
 	
 	private int exerciseType;
 	
-	private Number result,number1,number2; 
-	
-	boolean useFraction;
+	private Fraction result,number1,number2; 
 	
 	
 	public void init() {
+		
+		generateTwoNumbersForExercise();
+		
+		operation = getRandomOperation(StartFrame.getArithmeticOperations());
+		
+		result = calculation(number1, number2, operation);
+		
+
+//		System.out.println(exerciseType);
+//		System.out.println(number1.toString()+ operation+ number2.toString()+ "=" + result.toString());
+	}
+		
+	public void generateTwoNumbersForExercise() {
+		/*
+		 * get number range from user selection in StartFrame
+		 * in case of integers, two random numbers are generated
+		 * in case of fractions, four random numbers are needed to generate two fractions
+		 */
 		numberRange = StartFrame.getNumberRange();
 		
-		useFraction = StartFrame.getUseFraction();
+		boolean useFraction = StartFrame.getUseFraction();
+		
 		if (useFraction) {
 			int random1 = (Integer) getRandomNumber(numberRange[0],numberRange[1]);
 			int random2 = 0;
@@ -44,22 +58,14 @@ public class Exercise extends ArithmeticOperations {
 			number2 = new Fraction(random1,random2);
 			
 		} else {
-			number1 = (Integer) getRandomNumber(numberRange[0],numberRange[1]);
-			number2 = (Integer) getRandomNumber(numberRange[0],numberRange[1]);
+			int random1 = getRandomNumber(numberRange[0],numberRange[1]);
+			int random2 = getRandomNumber(numberRange[0],numberRange[1]);
+			number1 = new Fraction(random1);
+			number2 = new Fraction(random2);
 
 		}
-//		numberRange = StartFrame.getNumberRange();
-//		number1 = getRandomNumber(numberRange[0],numberRange[1]);
-//		number2 = getRandomNumber(numberRange[0],numberRange[1]);
-		operation = getRandomOperation(StartFrame.getArithmeticOperations());
-		
-		result = calculation(number1, number2, operation);
-		
-		exerciseType = super.randomNumber(1,3);
-		System.out.println(exerciseType);
-		System.out.println(number1.toString()+ operation+ number2.toString()+ "=" + result.toString());
-		
 	}
+
 
 	
 	public int getRandomNumber(int min, int max) { 
@@ -88,51 +94,43 @@ public class Exercise extends ArithmeticOperations {
 		return result;
 	}
 	
-//	public Fraction getFraction1() {
-//		return fraction1;
-//	}
-//	
-//	public Fraction getFraction2() {
-//		return fraction2;
-//	}
-	
 	public int getExerciseType() {
+		/*
+		 * exerciseType refers to which number in the exercise is missing and needs to be inserted
+		 * different exercise types:
+		 * 1 -> number1 + ? = result
+		 * 2 -> ? + number2 = result
+		 * 3 -> number1 + number2 = ?
+		 */
+		exerciseType = super.randomNumber(1,3);
 		return exerciseType;
 	}
 	
-	public Number calculation(Number number1, Number number2, String operation) {
-		
+	
+	
+	public Fraction calculation(Fraction number1, Fraction number2, String operation) {
 
 		switch (operation) {
-		case "+":
-			if (number1 instanceof Integer) {
-				result = sum( (Integer) number1,(Integer) number2);
-			} else if (number1 instanceof Fraction) {
-				result = sum((Fraction) number1, (Fraction)number2);
-			}
+		case " + ":
+			result = sum(number1, number2);
 			break;
-		case "-":
-			if (number1 instanceof Integer) {
-				result = diff((Integer) number1,(Integer) number2);
-			} else if (number1 instanceof Fraction) {
-				result = diff((Fraction) number1, (Fraction)number2);
-			}
+		case " - ":
+			result = diff(number1, number2);
 			break;
-		case "*":
-			if (number1 instanceof Integer) {
-				result = product((Integer) number1,(Integer) number2);
-			} else if (number1 instanceof Fraction) {
-				result = product((Fraction) number1, (Fraction)number2);
-			}
+		case " * ":
+			result = product(number1, number2);
 			break;
-//		case "/":
-//			// avoid ambiguous solution (if nominator is zero), division by zero, 
-//			// only show exercises where result is an integer
-//			if (number1 !=0 && number2 != 0 && (number1 % number2 == 0)) {
-//				result = ratio(number1,number2);
-//			} else {
-//				init();
-//			}
+		case "   /   ": // that many spaces to have a visual separation between the division "/" and the fraction "/" in case of division of two fractions 
+
+			if (number1.getDenominator()==1 && number2.getDenominator()==1 && (number1.getNumerator() % number2.getNumerator() != 0)) {
+				// for integers (denominator = 1) only show exercises where result is an integer
+				init();
+			} else if (number1.equals(new Fraction(0)) && number2.equals(new Fraction(0))){
+				// avoid ambiguous solution (if nominator is zero) and division by zero, 
+				init();
+			} else {
+				result = ratio(number1,number2);
+			} 
 		}
 		return result;
 	}

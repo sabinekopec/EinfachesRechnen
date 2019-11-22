@@ -14,7 +14,8 @@ public class SaveFileDialog extends JFrame {
 
 	
 	/**
-	 * 
+	 * Frame to select the path to save a txt file of the exercises
+	 * @param listOfExercises 
 	 */
 	private static final long serialVersionUID = 8908695787179211568L;
 	private ArrayList<String> listOfExercises;

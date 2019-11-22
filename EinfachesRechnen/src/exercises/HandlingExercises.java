@@ -22,8 +22,8 @@ import java.awt.Insets;
 
 public class HandlingExercises extends JDialog {
 
-	/**
-	 * 
+	/*
+	 * Dialog to show the 10 generated exercises and ask whether they should be saved or printed
 	 */
 	private static final long serialVersionUID = -6015619333972297300L;
 	private final JPanel contentPanel = new JPanel();
@@ -32,7 +32,7 @@ public class HandlingExercises extends JDialog {
 
 	/**
 	 * Create the dialog.
-	 * @param  
+	 *
 	 * @param listOfExercises 
 	 */
 	public HandlingExercises(ArrayList<String> listOfExercises) {
@@ -41,13 +41,13 @@ public class HandlingExercises extends JDialog {
 		setTitle("");
 //		setSize(new Dimension(100, 300));
 //		setPreferredSize(new Dimension(100, 300));
-		setBounds(100, 300, 300, 385);
+		setBounds(100, 300, 300, 574);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{292, 0};
 		gridBagLayout.rowHeights = new int[] {41, 41, 41, 41, 0, 0, 0, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 		getContentPane().setLayout(gridBagLayout);
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,7 +76,7 @@ public class HandlingExercises extends JDialog {
 			getContentPane().add(exercisePane, gbc_exercisePane);
 			{
 				JList<Object> exercisesList = new JList<Object>(listOfExercises.toArray());
-				exercisesList.setVisibleRowCount(10);
+				exercisesList.setVisibleRowCount(20);
 				exercisePane.add(exercisesList);
 			}
 		}

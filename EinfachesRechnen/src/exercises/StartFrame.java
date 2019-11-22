@@ -35,14 +35,11 @@ import java.util.List;
 public class StartFrame extends JFrame {
 
 	/**
-	 * 
+	 * Create frame to retrieve user information on which kind of exercises are to be displayed and how
 	 */
 	private static final long serialVersionUID = 7065162247067825117L;
-	/**
-	 * 
-	 */
+	
 	private JPanel contentPane;
-//	private String difficulty;
 	private String numberOfExercises;
 	private static int minNumber, maxNumber;
 	
@@ -50,9 +47,6 @@ public class StartFrame extends JFrame {
 
 	private static List<String> arithmeticOperations = new ArrayList<String>();
 	
-//	public String getDifficulty() {
-//		return difficulty;
-//	}
 	
 	public static List<String> getArithmeticOperations() {
 		return arithmeticOperations;
@@ -131,13 +125,6 @@ public class StartFrame extends JFrame {
 		gbc_cbNumberSpace.gridy = 0;
 		contentPane.add(cbNumberSpace, gbc_cbNumberSpace);
 		
-//		cbNumberSpace.addActionListener(new ActionListener() {
-//
-//			public void actionPerformed(ActionEvent e) {
-//				JComboBox<String> cb = (JComboBox<String>) e.getSource();
-//				difficulty = (String) cb.getSelectedItem();
-//			}
-//		});
 		
 		JLabel lblNumberOfExercises = new JLabel("Aufgabentyp auswählen");
 		GridBagConstraints gbc_lblNumberOfExercises = new GridBagConstraints();
@@ -148,7 +135,7 @@ public class StartFrame extends JFrame {
 		contentPane.add(lblNumberOfExercises, gbc_lblNumberOfExercises);
 		
 		JComboBox<String> cbNumberOfExercises = new JComboBox<String>();
-		cbNumberOfExercises.setModel(new DefaultComboBoxModel<String>(new String[] {"manuell eintragen", "10 Aufgaben zum Drucken"}));
+		cbNumberOfExercises.setModel(new DefaultComboBoxModel<String>(new String[] {"direkt üben", "10 Aufgaben zum Speichern"}));
 		GridBagConstraints gbc_cbNumberOfExercises = new GridBagConstraints();
 		gbc_cbNumberOfExercises.anchor = GridBagConstraints.WEST;
 		gbc_cbNumberOfExercises.insets = new Insets(0, 0, 5, 0);
@@ -184,11 +171,11 @@ public class StartFrame extends JFrame {
 		rdbtnAddition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("+")) {
-					arithmeticOperations.remove("+");
+					arithmeticOperations.remove(" + ");
 				}
 				
 				if(rdbtnAddition.isSelected()){ 
-					arithmeticOperations.add("+");
+					arithmeticOperations.add(" + ");
 				}
 			}
 		});
@@ -204,10 +191,10 @@ public class StartFrame extends JFrame {
 		rdbtnSubtraction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("-")) {
-					arithmeticOperations.remove("-");
+					arithmeticOperations.remove(" - ");
 				}
 				if(rdbtnSubtraction.isSelected()){ 
-					arithmeticOperations.add("-");
+					arithmeticOperations.add(" - ");
 				}
 			}
 		});
@@ -223,10 +210,10 @@ public class StartFrame extends JFrame {
 		rdbtnMultiplication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (arithmeticOperations.size()!=0 &&  arithmeticOperations.contains("*")) {
-					arithmeticOperations.remove("*");
+					arithmeticOperations.remove("  *  ");
 				}
 				if(rdbtnMultiplication.isSelected()){ 
-					arithmeticOperations.add("*");
+					arithmeticOperations.add(" * ");
 				}
 			}
 		});
@@ -242,11 +229,11 @@ public class StartFrame extends JFrame {
 		rdbtnDivision.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (arithmeticOperations.size()!=0 && arithmeticOperations.contains("/")) {
-					arithmeticOperations.remove("/");
+					arithmeticOperations.remove("   /   ");
 				}
 				
 				if(rdbtnDivision.isSelected()){ 
-					arithmeticOperations.add("/");
+					arithmeticOperations.add("   /   ");
 				}
 			}
 		});
@@ -300,7 +287,7 @@ public class StartFrame extends JFrame {
 					JOptionPane.showConfirmDialog(null, "Kein Zahlenraum ausgewählt. In welchem Zahlenraum möchtest du üben?", "Fehlender Zahlenraum", JOptionPane.PLAIN_MESSAGE);
 				} else {
 					
-					if (numberOfExercises != null && numberOfExercises.equals("10 Aufgaben zum Drucken")) {
+					if (numberOfExercises != null && numberOfExercises.equals("10 Aufgaben zum Speichern")) {
 						new GenerateListOfExercises();
 					} else {
 						new ExerciseFrame();

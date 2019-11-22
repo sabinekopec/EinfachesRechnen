@@ -14,11 +14,8 @@ import java.awt.GridLayout;
 
 public class ExerciseFrame extends JFrame {
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1159996402073146002L;
+	
 	private final JPanel contentPane = new JPanel();
 	private final JPanel panelNextTask = new JPanel();
 	private final JPanel panelSolution = new JPanel();
@@ -36,6 +33,7 @@ public class ExerciseFrame extends JFrame {
 	
 	Exercise exercise;
 	private int exerciseType;
+	private final JLabel lblNewLabel = new JLabel("<html><body style='width: 15cm;text-align:center'>Bei Brüchen bitte ein Leerzeichen vor und nach dem Bruchstrich einfügen. Die richtige Lösung ist immer der vollständig gekürzte Bruch.<body><html>");
 	
 	
 	public ExerciseFrame() {
@@ -48,13 +46,18 @@ public class ExerciseFrame extends JFrame {
 		
 		// general setup
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 362);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		contentPane.add(panelEquation);
 		
+		
+		/*
+		 * different layout for different exercise types
+		 * // see class Exercise for explanation
+		 */
 		switch(exerciseType) {
 		case 1:
 			panelEquation.add(lblNumber1);
@@ -84,7 +87,8 @@ public class ExerciseFrame extends JFrame {
 		contentPane.add(panelStatusMessage);
 		panelStatusMessage.add(statusMessage);
 		
-//		statusMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		panelStatusMessage.add(lblNewLabel);
+
 		
 		contentPane.add(panelSolution);
 		
@@ -166,12 +170,14 @@ public class ExerciseFrame extends JFrame {
 		
 		exerciseType = exercise.getExerciseType();
 
+		// getting numbers from class Exercise
 		lblNumber1.setText(exercise.getNumber1().toString());
 		lblNumber2.setText(exercise.getNumber2().toString());
 		lblOperation.setText(exercise.getOperation());
-		
 		lblResult.setText(exercise.getResult().toString());
-		statusMessage.setText("Bitte die Lösung in das Textfeld eintragen.");
+		
+		
+		statusMessage.setText("<html><body style='width: 15cm;text-align:center'>Bitte die Lösung in das Textfeld eintragen.<body><html>");
 		txtNumber.setText("");
 		
 		
